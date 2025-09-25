@@ -1,0 +1,15 @@
+import numpy as np
+#create vector of 70 elements
+a = np.arange(70)
+print(a)
+
+#convert to 2D array with 1 row
+a_2d = a.reshape(1, -1)
+print(a_2d)
+
+#save in another array
+b = a_2d.copy()
+print(b)
+
+#check shape
+print(b.shape)
