@@ -1,0 +1,38 @@
+# LOG 1
+import numpy as np
+#create vector of 70 elements
+a = np.arange(70)
+print(a)
+
+#convert to 2D array with 1 row
+a_2d = a.reshape(1, -1)
+print(a_2d)
+
+#save in another array
+b = a_2d.copy()
+print(b)
+
+#check shape
+print(b.shape)
+
+# LOG 2
+import pandas as pd
+data = {'relationship': ['Husband', 'Not-in-family', 'Own-child', 'Husband', 'Wife', 'Unmarried', 'Husband'],
+    'hours-per-week': [40, 20, 35, 50, 60, 25, 45]}
+
+df = pd.DataFrame(data)
+
+# Define n
+n = 10
+
+# Define function to reduce hours
+def reduce_hours(hours):
+    return max(hours - n, 0)
+
+# Apply the function
+df['reduced-hours-per-week'] = df['hours-per-week'].apply(reduce_hours)
+
+# Group by 'relationship' and 'reduced-hours-per-week'
+grouped = df.groupby(['relationship', 'reduced-hours-per-week']).size().reset_index(name='count')
+
+print(grouped)
