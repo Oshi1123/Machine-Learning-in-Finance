@@ -83,7 +83,7 @@ column_2_name = columns_map[last_digit]
 
 # Create a bicolour features interaction diagram
 plt.figure(figsize=(10, 6))
-sns.scatterplot(x=column_1_name, y=column_2_name, data=df, color='skyblue', alpha=0.6) # You can use different colors
+sns.scatterplot(x=column_1_name, y=column_2_name, data=df, color='skyblue', alpha=0.6)
 plt.title(f'Features Interaction Diagram: {column_1_name} vs {column_2_name}')
 plt.xlabel(column_1_name)
 plt.ylabel(column_2_name)
