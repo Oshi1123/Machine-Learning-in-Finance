@@ -1,0 +1,111 @@
+# LOG 1
+import numpy as np
+#create vector of 70 elements
+a = np.arange(70)
+print(a)
+
+#convert to 2D array with 1 row
+a_2d = a.reshape(1, -1)
+print(a_2d)
+
+#save in another array
+b = a_2d.copy()
+print(b)
+
+#check shape
+print(b.shape)
+
+# LOG 2
+import pandas as pd
+data = {'relationship': ['Husband', 'Not-in-family', 'Own-child', 'Husband', 'Wife', 'Unmarried', 'Husband'],
+    'hours-per-week': [40, 20, 35, 50, 60, 25, 45]}
+
+df = pd.DataFrame(data)
+
+# Define n
+n = 10
+
+# Define function to reduce hours
+def reduce_hours(hours):
+    return max(hours - n, 0)
+
+# Apply the function
+df['reduced-hours-per-week'] = df['hours-per-week'].apply(reduce_hours)
+
+# Group by 'relationship' and 'reduced-hours-per-week'
+grouped = df.groupby(['relationship', 'reduced-hours-per-week']).size().reset_index(name='count')
+
+print(grouped)
+
+# LOG 3
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Create a dummy DataFrame with all possible columns for demonstration. Replace with your actual data.
+data = {
+    'Account Length': np.random.randint(1, 300, 100),
+    'Total day calls': np.random.randint(0, 200, 100),
+    'Total day charge': np.random.rand(100) * 50,
+    'Total eve calls': np.random.randint(0, 200, 100),
+    'Total eve charge': np.random.rand(100) * 30,
+    'Total night calls': np.random.randint(0, 200, 100),
+    'Total night charge': np.random.rand(100) * 20,
+    'Total intl calls': np.random.randint(0, 20, 100),
+    'Total intl charge': np.random.rand(100) * 5,
+    'Customer service calls': np.random.randint(0, 10, 100)
+}
+df = pd.DataFrame(data)
+
+# Identify columns based on the last two digits of the SID (2444270)
+# Last digit is 0, second to last is 7
+columns_map = {
+    0: 'Customer service calls',
+    1: 'Account Length',
+    2: 'Total day calls',
+    3: 'Total day charge',
+    4: 'Total eve calls',
+    5: 'Total eve charge',
+    6: 'Total night calls',
+    7: 'Total night charge',
+    8: 'Total intl calls',
+    9: 'Total intl charge'
+}
+
+sid = "2444270"
+last_digit = int(sid[-1])
+second_last_digit = int(sid[-2])
+
+column_1_name = columns_map[second_last_digit]
+column_2_name = columns_map[last_digit]
+
+
+# Create a bicolour features interaction diagram
+plt.figure(figsize=(10, 6))
+sns.scatterplot(x=column_1_name, y=column_2_name, data=df, color='skyblue', alpha=0.6)
+plt.title(f'Features Interaction Diagram: {column_1_name} vs {column_2_name}')
+plt.xlabel(column_1_name)
+plt.ylabel(column_2_name)
+plt.grid(True)
+plt.show()
+
+# LOG 4
+from tensorflow import keras
+from tensorflow.keras import layers
+
+# Student ID is 2444270
+sid_last_three = 270
+second_layer_cells = sid_last_three // 2
+
+model = keras.Sequential([
+    layers.Dense(sid_last_three, activation='relu', input_shape=(784,)),
+    layers.Dense(second_layer_cells, activation='relu'),
+    layers.Dense(10, activation='softmax')
+])
+
+model.compile(optimizer='adam',
+              loss='sparse_categorical_crossentropy',
+              metrics=['accuracy'])
+
+model.summary()
