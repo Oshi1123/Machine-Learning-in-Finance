@@ -96,16 +96,16 @@ from tensorflow.keras import layers
 
 # Student ID is 2444270
 sid_last_three = 270
-second_layer_cells = sid_last_three // 2
+second_layer_cells = 135
 
 model = keras.Sequential([
-    layers.Dense(sid_last_three, activation='relu', input_shape=(784,)),
-    layers.Dense(second_layer_cells, activation='relu'),
-    layers.Dense(10, activation='softmax')
+    keras.layers.Dense(270, activation='relu', input_shape=(784,)),
+    keras.layers.Dense(135, activation='relu'),
+    keras.layers.Dense(1)
 ])
 
-model.compile(optimizer='adam',
-              loss='sparse_categorical_crossentropy',
-              metrics=['accuracy'])
+model.compile(optimizer="adam",
+              loss="mse",
+              metrics=["mae"])
 
-model.summary()
+print(model.summary())
