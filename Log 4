@@ -91,6 +91,18 @@ plt.grid(True)
 plt.show()
 
 # LOG 4
+import numpy as np
+x_train = np.random.rand(100, 10)
+y_train = np.random.rand(100, 1)
+x_test = np.random.rand(20, 10)
+y_test = np.random.rand(20, 1)
+
+
+print("x_train shape:", x_train.shape)
+print("y_train shape:", y_train.shape)
+print("x_test shape:", x_test.shape)
+print("y_test shape:", y_test.shape)
+
 from tensorflow import keras
 from tensorflow.keras import layers
 
@@ -99,8 +111,8 @@ sid_last_three = 270
 second_layer_cells = 135
 
 model = keras.Sequential([
-    keras.layers.Dense(270, activation='relu', input_shape=(784,)),
-    keras.layers.Dense(135, activation='relu'),
+    keras.layers.Dense(sid_last_three, activation='relu', input_shape=(x_train.shape[1],)),
+    keras.layers.Dense(second_layer_cells, activation='relu'),
     keras.layers.Dense(1)
 ])
 
@@ -109,3 +121,9 @@ model.compile(optimizer="adam",
               metrics=["mae"])
 
 print(model.summary())
+
+model.fit(x_train, y_train, epochs=10, batch_size=32)
+
+loss, mae = model.evaluate(x_test, y_test)
+
+print("Mean Absolute Error (MAE):", mae)
