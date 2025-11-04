@@ -177,10 +177,9 @@ print("Test MAE:", test_mae)
 import plotly.graph_objs as go
 
 sid_number = 2444270
-start_point = sid_number % 100000 # Last 5 digits
-time_period = sid_number % 1000   # Last 3 digits
+start_point = 44270
+time_period = 270
 
-# Ensure the end index does not exceed the dataframe length
 end_point = start_point + time_period
 if end_point > len(data):
     end_point = len(data)
